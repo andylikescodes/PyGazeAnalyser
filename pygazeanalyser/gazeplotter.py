@@ -194,14 +194,14 @@ def draw_heatmap(fixations, dispsize, imagefile=None, durationweight=True, alpha
 	gsdwh = gwh/6
 	gaus = gaussian(gwh,gsdwh)
 	# matrix of zeroes
-	strt = gwh/2
+	strt = int(gwh/2)
 	heatmapsize = dispsize[1] + 2*strt, dispsize[0] + 2*strt
 	heatmap = numpy.zeros(heatmapsize, dtype=float)
 	# create heatmap
 	for i in range(0,len(fix['dur'])):
 		# get x and y coordinates
-		x = strt + fix['x'][i] - int(gwh/2)
-		y = strt + fix['y'][i] - int(gwh/2)
+		x = strt + int(fix['x'][i]) - int(gwh/2)
+		y = strt + int(fix['y'][i]) - int(gwh/2)
 		# correct Gaussian size if either coordinate falls outside of
 		# display boundaries
 		if (not 0 < x < dispsize[0]) or (not 0 < y < dispsize[1]):
@@ -396,8 +396,8 @@ def draw_display(dispsize, imagefile=None):
 		# width and height of the image
 		w, h = len(img[0]), len(img)
 		# x and y position of the image on the display
-		x = dispsize[0]/2 - w/2
-		y = dispsize[1]/2 - h/2
+		x = int(dispsize[0]/2) - int(w/2)
+		y = int(dispsize[1]/2) - int(h/2)
 		# draw the image on the screen
 		screen[y:y+h,x:x+w,:] += img
 	# dots per inch
